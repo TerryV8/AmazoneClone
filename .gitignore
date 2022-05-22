@@ -1,3 +1,7 @@
+# Don't download modules
+node_modules
+node_modules/
+
 # OSX
 #
 .DS_Store
@@ -60,6 +64,3 @@ buck-out/
 /ios/Pods/
 /vendor/bundle/
 
-# Don't download modules
-node_modules
-node_modules
