@@ -35,5 +35,5 @@ const ShoppingCartScreen = () => {
 export default ShoppingCartScreen;
 
 const styles = StyleSheet.create({
-  page: {paddingBottom: 210},
+  page: {paddingTop: 15, paddingBottom: 210},
 });
