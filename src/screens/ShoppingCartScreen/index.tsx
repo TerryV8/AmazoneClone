@@ -1,16 +1,16 @@
 import {View, Text, Image, StyleSheet, FlatList} from 'react-native';
 import React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import ProductItem from '../../components/ProductItem/index';
+import CartProductItem from '../../components/CartProductItem/index';
 
-import products from '../../data/products';
+import cart from '../../data/cart';
 
 const ShoppingCartScreen = () => {
   return (
     <View style={styles.page}>
       <FlatList
-        data={products}
-        renderItem={({item}) => <ProductItem item={item} />}
+        data={cart}
+        renderItem={({item}) => <CartProductItem cartItem={item} />}
       />
     </View>
   );

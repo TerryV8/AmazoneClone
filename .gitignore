@@ -1,6 +1,14 @@
+
+
 # Don't download modules
 node_modules
 node_modules/
+node_modules/.package-lock.json
+
+
+# Don't download modules - npm changed
+package-lock.json
+android
 
 # OSX
 #

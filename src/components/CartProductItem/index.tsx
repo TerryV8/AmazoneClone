@@ -1,22 +1,34 @@
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 import styles from './style';
-import React from 'react';
+import React, {useState} from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import QuantitySelector from '../QuantitySelector';
 
-interface ProductItemProps {
-  item: {
+interface CartProductItemProps {
+  cartItem: {
     id: String;
-    title: String;
-    image: String;
-    avgRating: Number;
-    ratings: Number;
-    price: Number;
-    oldPrice?: Number;
+    quantity: number;
+    option?: String;
+    item: {
+      id: String;
+      title: String;
+      image: String;
+      avgRating: number;
+      ratings: number;
+      price: number;
+      oldPrice?: number;
+    };
   };
 }
 
-const ProductItem = (props: ProductItemProps) => {
-  const {item} = props;
+const CartProductItem = ({cartItem}: CartProductItemProps) => {
+  const onDelete = () => {
+    //ACTION TO DELETE
+  };
+
+  const item = cartItem.item;
+  const quantityProp = cartItem.quantity;
+  const [quantity, setQuantity] = useState(Number(quantityProp));
   return (
     <View style={styles.root}>
       <Image
@@ -45,9 +57,16 @@ const ProductItem = (props: ProductItemProps) => {
             <Text style={styles.oldPrice}> ${item.oldPrice}</Text>
           )}
         </Text>
+        <View style={styles.rowQuantitySelector}>
+          <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
+
+          <Pressable style={styles.deleteButton} onPress={onDelete}>
+            <Text>Delete</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
 };
 
-export default ProductItem;
+export default CartProductItem;
