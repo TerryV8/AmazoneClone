@@ -9,19 +9,65 @@ import ProductItem from '../../components/ProductItem';
 const countryList = require('country-list');
 
 const AddressScreen = () => {
-  const [country, setCountry] = useState('US');
-  const [fullName, setFullName] = useState('John DO');
-  const [phoneNumber, setPhoneNumber] = useState('+33680853030');
+  const [country, setCountry] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [address, setAddress] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [city, setCity] = useState('');
+
+  const [fullNameError, setFullNameError] = useState(false);
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+  const [zipCodeError, setZipCodeError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [generalError, setGeneralError] = useState(false);
+
+  const validateForm = () => {
+    if (fullName === '') {
+      setFullNameError(true);
+      setGeneralError(true);
+    } else {
+      setFullNameError(false);
+    }
+
+    var phoneNumberFormat = /^\d+$/;
+    if (
+      phoneNumber === '' ||
+      !phoneNumber.match(phoneNumberFormat) ||
+      phoneNumber.length < 8
+    ) {
+      setPhoneNumberError(true);
+      setGeneralError(true);
+    } else {
+      setPhoneNumberError(false);
+    }
+
+    if (address === '') {
+      setAddressError(true);
+      setGeneralError(true);
+    }
+    if (zipCode === '') {
+      setZipCodeError(true);
+      setGeneralError(true);
+    }
+    if (city === '') {
+      setCityError(true);
+      setGeneralError(true);
+    }
+  };
+
+  const validateAddress = () => {};
 
   return (
     <View style={styles.page}>
       <View>
         <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>
-          Country
+          Country :
         </Text>
         <Picker
           style={styles.picker}
-          selectedValue={country}
+          selectedValue="FR"
           onValueChange={item => setCountry(item)}>
           {countryList.getData().map(country => (
             <Picker.Item
@@ -32,35 +78,70 @@ const AddressScreen = () => {
           ))}
         </Picker>
         <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>
-          Full Name (First & Last name)
+          Full Name (First & Last name) :
         </Text>
+        {fullNameError && (
+          <Text style={{color: 'red'}}>The full name field is required *</Text>
+        )}
         <TextInput
           style={styles.input}
-          placeholder={fullName}
+          placeholder="John DO"
           value={fullName}
-          onChangeText={setFullName}></TextInput>
-
+          onChangeText={fullName => {
+            setFullName(fullName);
+            setFullNameError(false);
+            setGeneralError(false);
+          }}></TextInput>
         <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>
-          Phone Number
+          Phone Number :
+        </Text>
+        {phoneNumberError && (
+          <Text style={{color: 'red'}}>Fill a right phone number *</Text>
+        )}
+        <TextInput
+          keyboardType="number-pad"
+          style={styles.input}
+          placeholder="0033680853030"
+          value={phoneNumber}
+          onChangeText={phoneNumber => {
+            setPhoneNumber(phoneNumber);
+            setPhoneNumberError(false);
+            setGeneralError(false);
+          }}></TextInput>
+        <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>
+          Address :
         </Text>
         <TextInput
           style={styles.input}
-          placeholder={phoneNumber}
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}></TextInput>
-
+          placeholder="30 avenue charles de Gaulles"
+          value={address}
+          onChangeText={setAddress}></TextInput>
         <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>
-          Address
+          Zip code :
         </Text>
+        <TextInput
+          keyboardType="number-pad"
+          style={styles.input}
+          placeholder="75016"
+          value={zipCode}
+          onChangeText={setZipCode}></TextInput>
         <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>
-          City
+          City :
         </Text>
-        <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>
-          State
-        </Text>
-        <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>
-          Zip code
-        </Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Paris"
+          value={city}
+          onChangeText={setCity}></TextInput>
+        {generalError && (
+          <Text style={{color: 'red'}}>Some fields are not well filled</Text>
+        )}
+        <Button
+          text="Process to checkout"
+          onPress={() => {
+            validateForm();
+          }}
+        />
       </View>
     </View>
   );
@@ -77,9 +158,10 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   picker: {
+    marginTop: 4,
     backgroundColor: 'white',
     height: 36,
-    marginBottom: 10,
+    marginBottom: 11,
     marginLeft: 5,
     paddingLeft: 5,
     borderColor: '#aaa',
@@ -92,7 +174,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     marginLeft: 4,
     paddingLeft: 16,
-    marginBottom: 10,
-    marginTop: 3,
+    marginBottom: 11,
+    marginTop: 4,
   },
 });
