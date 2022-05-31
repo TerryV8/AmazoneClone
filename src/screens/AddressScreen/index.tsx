@@ -1,4 +1,11 @@
-import {View, Text, TextInput, StyleSheet, FlatList} from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 
 import React, {useState} from 'react';
@@ -60,7 +67,7 @@ const AddressScreen = () => {
   const validateAddress = () => {};
 
   return (
-    <View style={styles.page}>
+    <ScrollView style={styles.page}>
       <View>
         <Text style={{fontSize: 18, color: 'black', fontWeight: 'bold'}}>
           Country :
@@ -137,13 +144,14 @@ const AddressScreen = () => {
           <Text style={{color: 'red'}}>Some fields are not well filled</Text>
         )}
         <Button
-          text="Process to checkout"
+          text="Checkout"
           onPress={() => {
             validateForm();
           }}
         />
+        <Text></Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -155,7 +163,7 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     paddingRight: 12,
     paddingTop: 15,
-    paddingBottom: 30,
+    paddingBottom: 40,
   },
   picker: {
     marginTop: 4,
@@ -174,7 +182,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     marginLeft: 4,
     paddingLeft: 16,
-    marginBottom: 11,
+    marginBottom: 12,
     marginTop: 4,
   },
 });

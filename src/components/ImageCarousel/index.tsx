@@ -32,11 +32,12 @@ const ImageCarousel = ({images}: {images: [String]}) => {
           <Image
             style={[styles.image, {width: windowWidth - 40}]}
             source={{
-              uri: item,
+              uri: String(item ? item : ''),
             }}
-            key="{{item} - {index}}"
+            key={item.toString()}
           />
         )}
+        keyExtractor={item => item.toString()}
         viewabilityConfig={{viewAreaCoveragePercentThreshold: 50}}
         onViewableItemsChanged={onFlatListUpdate}
       />
@@ -49,6 +50,7 @@ const ImageCarousel = ({images}: {images: [String]}) => {
                 ? [styles.dot, {backgroundColor: 'black'}]
                 : [styles.dot, {backgroundColor: 'white'}]
             }
+            key={image.toString()}
           />
         ))}
       </View>
