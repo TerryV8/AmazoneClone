@@ -1,7 +1,8 @@
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, Image, ScrollView, Pressable} from 'react-native';
 import styles from './style';
 import React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
 
 interface ProductItemProps {
   item: {
@@ -16,9 +17,15 @@ interface ProductItemProps {
 }
 
 const ProductItem = (props: ProductItemProps) => {
+  const navigation = useNavigation();
   const {item} = props;
   return (
-    <View style={styles.root}>
+    <Pressable
+      style={styles.root}
+      onPress={() => {
+        console.log(item.id.toString());
+        navigation.navigate('ProductScreen', {id: item.id});
+      }}>
       <Image
         style={styles.image}
         source={{
@@ -32,12 +39,12 @@ const ProductItem = (props: ProductItemProps) => {
           {[0, 0, 0, 0, 0].map((el, i) => (
             <FontAwesome
               key={`${item.id}-${i}`}
-              name={i < Math.floor(item.avgRating) ? 'star' : 'star-o'}
+              name={i < Math.floor(Number(item.avgRating)) ? 'star' : 'star-o'}
               size={18}
               color={'#e47911'}
               style={styles.star}></FontAwesome>
           ))}
-          <Text>{item.ratings}</Text>
+          <Text>{String(item.ratings)}</Text>
         </View>
         <Text style={styles.price}>
           From ${item.price}{' '}
@@ -46,7 +53,7 @@ const ProductItem = (props: ProductItemProps) => {
           )}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

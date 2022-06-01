@@ -22,6 +22,8 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+import HomeStack from './router/HomeStack';
+
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -54,10 +56,11 @@ const App = () => {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({route}) => ({
+          headerShown: false,
           tabBarIcon: ({focused, color, size}) => {
             let iconName;
 
-            if (route.name === 'Home') {
+            if (route.name === 'HomeStack') {
               iconName = focused ? 'home' : 'home-outline';
               return <Ionicons name={iconName} size={size} color={color} />;
             } else if (route.name === 'Product') {
@@ -74,7 +77,7 @@ const App = () => {
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
         })}>
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="HomeStack" component={HomeStack} />
         <Tab.Screen name="Product" component={ProductScreen} />
         <Tab.Screen name="ShoppingCart" component={ShoppingCartScreen} />
         <Tab.Screen name="Address" component={AddressScreen} />
