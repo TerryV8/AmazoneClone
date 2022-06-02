@@ -23,6 +23,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import HomeStack from './router/HomeStack';
+import ShoppingCartStack from './router/ShoppingCartStack';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -63,24 +64,30 @@ const App = () => {
             if (route.name === 'HomeStack') {
               iconName = focused ? 'home' : 'home-outline';
               return <Ionicons name={iconName} size={size} color={color} />;
-            } else if (route.name === 'Product') {
-              iconName = focused ? 'rocket' : 'rocket-outline';
-              return <Ionicons name={iconName} size={size} color={color} />;
-            } else if (route.name === 'ShoppingCart') {
+            } else if (route.name === 'Profile') {
+              iconName = focused ? 'user' : 'user-o';
+              return <FontAwesome name={iconName} size={size} color={color} />;
+            } else if (route.name === 'Shopping Cart') {
               iconName = focused ? 'cart' : 'cart-outline';
               return <Ionicons name={iconName} size={size} color={color} />;
-            } else if (route.name === 'Address') {
-              iconName = focused ? 'address-card' : 'address-card-o';
-              return <FontAwesome name={iconName} size={size} color={color} />;
+            } else if (route.name === 'Others') {
+              iconName = focused
+                ? 'md-reorder-three-sharp'
+                : 'md-reorder-three-outline';
+              return <Ionicons name={iconName} size={size} color={color} />;
             }
           },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
         })}>
-        <Tab.Screen name="HomeStack" component={HomeStack} />
-        <Tab.Screen name="Product" component={ProductScreen} />
-        <Tab.Screen name="ShoppingCart" component={ShoppingCartScreen} />
-        <Tab.Screen name="Address" component={AddressScreen} />
+        <Tab.Screen
+          name="HomeStack"
+          component={HomeStack}
+          options={{title: 'Home', headerTitleAlign: 'center'}}
+        />
+        <Tab.Screen name="Shopping Cart" component={ShoppingCartStack} />
+        <Tab.Screen name="Profile" component={AddressScreen} />
+        <Tab.Screen name="Others" component={ProductScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

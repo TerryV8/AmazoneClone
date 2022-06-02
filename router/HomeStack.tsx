@@ -8,7 +8,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, SafeAreaView, TextInput} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../src/screens/HomeScreen';
@@ -17,7 +17,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 
-const HeaderComponent = () => {
+interface HeaderComponentProps {
+  search: string;
+  setSearch: () => void;
+}
+
+const HeaderComponent = ({search, setSearch}: HeaderComponentProps) => {
   return (
     <View style={{backgroundColor: 'lightblue'}}>
       <View
@@ -45,19 +50,25 @@ const HeaderComponent = () => {
             paddingRight: 10,
             flex: 1,
           }}
-          placeholder="Search ..."></TextInput>
+          placeholder="Search ..."
+          value={search}
+          onChangeText={setSearch}></TextInput>
       </View>
     </View>
   );
 };
 
 const HomeStack = () => {
+  const [search, setSearch] = useState('');
+
   return (
     <Stack.Navigator
       screenOptions={{
-        header: () => <HeaderComponent />,
+        header: () => <HeaderComponent search={search} setSearch={setSearch} />,
       }}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Home">
+        {() => <HomeScreen search={search}></HomeScreen>}
+      </Stack.Screen>
       <Stack.Screen
         name="ProductScreen"
         component={ProductScreen}

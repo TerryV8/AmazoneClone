@@ -3,10 +3,12 @@ import React from 'react';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import CartProductItem from '../../components/CartProductItem/index';
 import Button from '../../components/Button';
+import {useNavigation} from '@react-navigation/native';
 
 import cart from '../../data/cart';
 
 const ShoppingCartScreen = () => {
+  const navigation = useNavigation();
   const subTotalPrice = () => {
     let subTotal = 0;
 
@@ -22,7 +24,12 @@ const ShoppingCartScreen = () => {
           Subtotal ({cart.length} items):{' '}
           <Text style={{color: '#e47911'}}>${subTotalPrice()}</Text>
         </Text>
-        <Button text="Proceed to checkout" onPress={() => {}} />
+        <Button
+          text="Proceed to checkout"
+          onPress={() => {
+            navigation.navigate('Address');
+          }}
+        />
       </View>
       <FlatList
         data={cart}

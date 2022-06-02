@@ -5,7 +5,8 @@ import ProductItem from '../../components/ProductItem/index';
 
 import products from '../../data/products';
 
-const HomeScreen = () => {
+const HomeScreen = ({search}: {search: String}) => {
+  console.log(search);
   return (
     <View style={styles.page}>
       <FlatList
